@@ -25,6 +25,10 @@ function ToastPlayground() {
   const [toasts, setToasts] = React.useState(initialToast)
   const messageRef = React.useRef()
 
+  React.useEffect(() => {
+    messageRef.current.focus()
+  }, [])
+
   function handleDismiss(id) {
     const newToasts = toasts.filter((toast) => toast.id !== id)
     setToasts(newToasts)
@@ -33,6 +37,7 @@ function ToastPlayground() {
   function cleanupForm() {
     setMessage("")
     setVariant("")
+    messageRef.current.focus()
   }
 
   function handleAddToast(e) {

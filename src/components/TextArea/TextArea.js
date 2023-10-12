@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "./../ToastPlayground/ToastPlayground.module.css"
 
-function TextArea({ message, setMessage, ...props }) {
+function TextArea({ message, setMessage, ...props }, ref) {
   const id = React.useId()
 
   return (
@@ -20,10 +20,11 @@ function TextArea({ message, setMessage, ...props }) {
           className={styles.messageInput}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
+          ref={ref}
         />
       </div>
     </>
   )
 }
 
-export default TextArea
+export default React.forwardRef(TextArea)
