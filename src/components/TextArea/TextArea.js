@@ -1,7 +1,7 @@
 import React from "react"
 import styles from "./../ToastPlayground/ToastPlayground.module.css"
 
-function TextArea({ message, setMessage }) {
+function TextArea({ message, setMessage, ...props }) {
   const id = React.useId()
 
   return (
@@ -15,6 +15,7 @@ function TextArea({ message, setMessage }) {
       </label>
       <div className={styles.inputWrapper}>
         <textarea
+          {...props}
           id={`message-${id}`}
           className={styles.messageInput}
           value={message}
