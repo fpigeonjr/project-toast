@@ -1,12 +1,12 @@
 import React from "react"
 
-function RadioButton({ variant, setValue, value, ...props }) {
+function RadioButton({ variant, setValue, value, ...rest }) {
   const id = React.useId()
 
   return (
     <label htmlFor={`variant-${id}`}>
       <input
-        {...props}
+        {...rest}
         id={`variant-${id}`}
         type="radio"
         name="variant"

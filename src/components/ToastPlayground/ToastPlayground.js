@@ -36,7 +36,7 @@ function ToastPlayground() {
 
   function cleanupForm() {
     setMessage("")
-    setVariant("")
+    setVariant(VARIANT_OPTIONS[0])
     messageRef.current.focus()
   }
 
@@ -48,7 +48,8 @@ function ToastPlayground() {
       message,
       variant
     }
-    setToasts([...toasts, newToast])
+    const nextToasts = [...toasts, newToast]
+    setToasts(nextToasts)
     cleanupForm()
   }
 
