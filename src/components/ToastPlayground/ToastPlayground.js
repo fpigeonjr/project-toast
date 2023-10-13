@@ -4,54 +4,15 @@ import TextArea from "../TextArea/TextArea"
 import styles from "./ToastPlayground.module.css"
 import RadioButton from "../RadioButton"
 import ToastShelf from "../ToastShelf"
+import { ToastContext } from "../ToastProvider/ToastProvider"
 
-const VARIANT_OPTIONS = ["notice", "warning", "success", "error"]
-const initialToast = [
-  {
-    id: 112387,
-    message: "Example notice toast",
-    variant: VARIANT_OPTIONS[0]
-  },
-  {
-    id: 212381,
-    message: "Example error toast",
-    variant: VARIANT_OPTIONS[3]
-  }
-]
 function ToastPlayground() {
-  const [variant, setVariant] = React.useState("")
-  const [message, setMessage] = React.useState("")
-  const [showToast, setShowToast] = React.useState(false)
-  const [toasts, setToasts] = React.useState(initialToast)
-  const messageRef = React.useRef()
+  const { handleAddToast, VARIANT_OPTIONS, showToast, variant, setVariant, messageRef } =
+    React.useContext(ToastContext)
 
   React.useEffect(() => {
     messageRef.current.focus()
-  }, [])
-
-  function handleDismiss(id) {
-    const newToasts = toasts.filter((toast) => toast.id !== id)
-    setToasts(newToasts)
-  }
-
-  function cleanupForm() {
-    setMessage("")
-    setVariant(VARIANT_OPTIONS[0])
-    messageRef.current.focus()
-  }
-
-  function handleAddToast(e) {
-    e.preventDefault()
-    setShowToast(true)
-    const newToast = {
-      id: crypto.randomUUID(),
-      message,
-      variant
-    }
-    const nextToasts = [...toasts, newToast]
-    setToasts(nextToasts)
-    cleanupForm()
-  }
+  }, [messageRef])
 
   return (
     <div className={styles.wrapper}>
@@ -62,20 +23,13 @@ function ToastPlayground() {
         />
         <h1>Toast Playground</h1>
       </header>
-      {showToast && (
-        <ToastShelf
-          toasts={toasts}
-          handleDismiss={handleDismiss}
-        />
-      )}
+      {showToast && <ToastShelf />}
       <form
         className={styles.controlsWrapper}
         onSubmit={handleAddToast}
       >
         <div className={styles.row}>
           <TextArea
-            message={message}
-            setMessage={setMessage}
             required={true}
             ref={messageRef}
           />
@@ -87,9 +41,7 @@ function ToastPlayground() {
             {VARIANT_OPTIONS.map((option) => (
               <RadioButton
                 key={option}
-                variant={option}
-                value={variant}
-                setValue={setVariant}
+                option={option}
                 required
               />
             ))}

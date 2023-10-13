@@ -1,20 +1,21 @@
 import React from "react"
+import { ToastContext } from "../ToastProvider"
 
-function RadioButton({ variant, setValue, value, ...rest }) {
+function RadioButton({ option }) {
   const id = React.useId()
+  const { variant, setVariant } = React.useContext(ToastContext)
 
   return (
     <label htmlFor={`variant-${id}`}>
       <input
-        {...rest}
         id={`variant-${id}`}
         type="radio"
         name="variant"
-        value={variant}
-        checked={value === variant}
-        onChange={(e) => setValue(e.target.value)}
+        value={option}
+        checked={option === variant}
+        onChange={(e) => setVariant(e.target.value)}
       />
-      {variant}
+      {option}
     </label>
   )
 }

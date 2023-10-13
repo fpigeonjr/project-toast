@@ -1,8 +1,10 @@
 import React from "react"
 import styles from "./../ToastPlayground/ToastPlayground.module.css"
+import { ToastContext } from "../ToastProvider/ToastProvider"
 
-function TextArea({ message, setMessage, ...props }, ref) {
+function TextArea({ ...props }, ref) {
   const id = React.useId()
+  const { message, setMessage } = React.useContext(ToastContext)
 
   return (
     <>
