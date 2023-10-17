@@ -4,29 +4,14 @@ import TextArea from "../TextArea/TextArea"
 import styles from "./ToastPlayground.module.css"
 import RadioButton from "../RadioButton"
 import ToastShelf from "../ToastShelf"
-import { ToastContext } from "../ToastProvider/ToastProvider"
+import { ToastContext } from "../ToastProvider"
 
 function ToastPlayground() {
-  const { handleAddToast, VARIANT_OPTIONS, showToast, messageRef, setToasts } =
-    React.useContext(ToastContext)
+  const { handleAddToast, VARIANT_OPTIONS, showToast, messageRef } = React.useContext(ToastContext)
 
   React.useEffect(() => {
     messageRef.current.focus()
   }, [messageRef])
-
-  React.useEffect(() => {
-    function handleKeyDown(event) {
-      if (event.code === "Escape") {
-        setToasts([])
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-    }
-  }, [])
 
   return (
     <div className={styles.wrapper}>
