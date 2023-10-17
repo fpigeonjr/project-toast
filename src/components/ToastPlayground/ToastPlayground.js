@@ -7,12 +7,26 @@ import ToastShelf from "../ToastShelf"
 import { ToastContext } from "../ToastProvider/ToastProvider"
 
 function ToastPlayground() {
-  const { handleAddToast, VARIANT_OPTIONS, showToast, variant, setVariant, messageRef } =
+  const { handleAddToast, VARIANT_OPTIONS, showToast, messageRef, setToasts } =
     React.useContext(ToastContext)
 
   React.useEffect(() => {
     messageRef.current.focus()
   }, [messageRef])
+
+  React.useEffect(() => {
+    function handleKeyDown(event) {
+      if (event.code === "Escape") {
+        setToasts([])
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [])
 
   return (
     <div className={styles.wrapper}>
