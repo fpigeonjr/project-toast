@@ -4,11 +4,10 @@ import TextArea from "../TextArea/TextArea"
 import styles from "./ToastPlayground.module.css"
 import RadioButton from "../RadioButton"
 import ToastShelf from "../ToastShelf"
-import { ToastContext } from "../ToastProvider/ToastProvider"
+import { ToastContext } from "../ToastProvider"
 
 function ToastPlayground() {
-  const { handleAddToast, VARIANT_OPTIONS, showToast, variant, setVariant, messageRef } =
-    React.useContext(ToastContext)
+  const { handleAddToast, VARIANT_OPTIONS, showToast, messageRef } = React.useContext(ToastContext)
 
   React.useEffect(() => {
     messageRef.current.focus()

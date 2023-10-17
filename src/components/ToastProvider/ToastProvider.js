@@ -1,4 +1,6 @@
 import React from "react"
+import useEscKey from "../../hooks/useEscKey"
+
 export const ToastContext = React.createContext()
 function ToastProvider({ children }) {
   const [variant, setVariant] = React.useState("")
@@ -7,6 +9,7 @@ function ToastProvider({ children }) {
   const [toasts, setToasts] = React.useState([])
   const messageRef = React.useRef()
   const VARIANT_OPTIONS = ["notice", "warning", "success", "error"]
+  useEscKey(() => setToasts([]))
 
   function handleDismiss(id) {
     const newToasts = toasts.filter((toast) => toast.id !== id)
